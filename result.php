@@ -44,6 +44,39 @@
 		}
 	?>
 	
+	<?php 
+		if(isset($_POST['submit']) && $_POST['submit'] != ''){ 
+			$missing_data = array();
+			
+			if(empty($_POST['username'])){
+				$missing_data[] = 'Username';
+			}
+			else{
+				$user_name = $_POST['username'];
+			}
+			
+			// the following fields are optional and not necessary to write a review
+			$fname = $_POST['firstname'];
+			$lname = $_POST['lastname'];
+			$email = $_POST['email'];
+			
+		}
+		else{
+			echo "Required fields not filled in.";
+		}
+		if(empty($missing_data)){
+			$q = "INSERT INTO reviewers(username, fname, lname, email)
+			VALUES(?, ?, ?, ?)";
+			
+			$insert = mysqli_prepare($conn, $q);
+			mysqli_stmt_bind_param($insert, "ssss", $user_name, $fname, $lname, $email);
+			
+			mysqli_stmt_execute($insert);
+		}
+		
+		mysqli_close($conn);
+	?>
+	
 	<div class="container">
 		<form action="example.php">
 			<button type="submit" class="btn btn-info">Go Back</button>

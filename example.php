@@ -11,25 +11,57 @@
 </head>
 <body>
 
-<h1 align="center">Movie Reviews</h1>
-	<form action="result.php" method="post">
-		Value1: <input type="text" name = "field1" /><br/>
-		Value2: <input type="text" name = "field2" /><br/>
-		Value3: <input type="text" name = "field3" /><br/>
-		Value4: <input type="text" name = "field4" /><br/>
-		Value5: <input type="text" name = "field5" /><br/>
-		<input type="submit" />
-	</form>
-	<?php
-		echo "<div class='container'><h2>Recent Movie Releases</h2></div>"; ?>
-	<?php
+<?php
 		$servername = "localhost";
 		$username = "root";
 		$password = "pwdpwd";
 		$dbname = "movie_reviews";
 		
 		$conn = new mysqli($servername, $username, $password, $dbname);
-		$conn->select_db($dbname) or die("Unable to connect to database.");
+		$conn->select_db($dbname) or die("Unable to connect to database."); 
+?>
+
+<h1 align="center">Movie Reviews</h1>
+	<div class="container ">
+		<h3>Add A Review</h3>
+			<div class="row">
+			<form action="result.php" method="post">
+				<div class="col">
+					<p>Username*: <!-- must be unique -->
+					<input type="text" name="username" size="20" maxlength="20" value="" /></p>
+					<p><em>First name (optional):</em>
+					<input type="text" name="firstname" maxlength="50" size="20" value="" /></p>
+					<p><em>Last name (optional):</em>
+					<input type="text" name="lastname" maxlength="50" size="20" value="" /></p>
+					<p><em>Email (optional):</em>
+					<input type="text" name="email" size="20" value="" /></p>
+					<p>Movie Title*:
+					<select name="movies">
+						<option value="1">Shrek the Third</option>
+						<option value="2">Frozen</option>
+						<option value="3">The Revenant</option>
+						<option value="4">Once Upon a Time ... in Hollywood</option>
+						<option value="6">Joker</option>
+						<option value="7">Shrek</option>
+						<option value="8">Shrek 2</option>
+						<option value="9">Avengers: Endgame</option>
+						<option value="10">Titanic</option>
+						<option value="11">Frozen II</option>
+						<option value="12">Black Panther</option>
+						<option value="13">John Wick: Chapter 3 - Parabellum</option>
+					</select>
+					<p>Score*:
+					<input type="text" name="score" size="5" maxlength="2" value="" /></p>
+					<p>Review*:
+					<textarea type="text" name="review" value="" rows="4" cols="50"></textarea></p>
+					<input type="submit" name="submit" class="btn btn-primary">
+				</div>
+			</form>
+			</div>
+	</div>
+	<?php
+		echo "<div class='container'><h2>Recent Movie Releases</h2></div>"; ?>
+	<?php
 		
 		//$query = "SELECT * FROM movies ORDER BY year DESC";
 		$query = "SELECT title, year, runtime, age_rating, lead_actor, director, GROUP_CONCAT(g.genre) 
