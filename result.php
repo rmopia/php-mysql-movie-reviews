@@ -13,7 +13,7 @@
 
 <h1 align="center">Movie Reviews</h1>
 	<?php
-		echo "<h2>Recent Movie Reviews</h2>";
+		echo "<div class='container'><h2>Recent Movie Reviews</h2></div>";
 
 		$servername = "localhost";
 		$username = "root";
@@ -22,20 +22,33 @@
 		
 		$conn = new mysqli($servername, $username, $password, $dbname);
 		$conn->select_db($dbname) or die("Unable to connect to database.");
-		$query = "SELECT * FROM reviews";
+		$query = "SELECT * FROM reviewers INNER JOIN reviews ON 
+		reviewers.rid=reviews.rid INNER JOIN movies ON reviews.mid=movies.mid ORDER BY date_posted DESC";
 		
 		$response = mysqli_query($conn, $query);
 		
 		if($response){
-			'<table class="table table-striped">';
+			echo '<div class="container"><table class="table table-hover table-bordered">
+			<th scope="col">Movie</th>
+			<th scope="col">Review</th>
+			<th scope="col">Score</th>
+			<th scope="col">Date posted</th>
+			';
 			while($row = mysqli_fetch_array($response)){
-				echo '<tr><td align="left">' . $row['review'] . '</td> 
-				<td align="left">' . $row['score'] . '</td>
-				<td align="left">' . $row['date_posted'] . '</td>';
+				echo '<tr><td align="left">' . $row['title'] . '</td> 
+				<td align="left">' . '<strong><em>' . $row['username'] . " says... </em></strong>" . $row["review"] . '</td>
+				<td align="left">' . "<strong>" . $row['score'] . "</strong>" . '</td>
+				<td align="left">' . "<p class='small'>" . $row['date_posted'] . "</p>" . '</td>';
 			}
-			echo "</tr></table>";
+			echo "</tr></table></div>";
 		}
 	?>
+	
+	<div class="container">
+		<form action="example.php">
+			<button type="submit" class="btn btn-info">Go Back</button>
+		</form>
+	</div>
 
 </body>
 </html>

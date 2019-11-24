@@ -38,7 +38,7 @@
 		
 		$response = mysqli_query($conn, $query);
 		if($response){
-			echo '<div class="container"><table class="table table-striped"><thead><tr>
+			echo '<div class="container"><table class="table table-striped table-hover"><thead><tr>
 			<th scope="col">Title</th>
 			<th scope="col">Year</th>
 			<th scope="col">Runtime (mins)</th>
@@ -61,7 +61,7 @@
 		else{
 			echo "problem";
 		}
-		$conn->close();
+		mysqli_close($conn);
 	?>
 
 </body>
