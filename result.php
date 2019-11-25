@@ -22,10 +22,78 @@
 		
 		$conn = new mysqli($servername, $username, $password, $dbname);
 		$conn->select_db($dbname) or die("Unable to connect to database.");
-		$query = "SELECT * FROM reviewers INNER JOIN reviews ON 
+	?>
+	
+	<?php 
+		if(isset($_POST['submit']) && $_POST['submit'] != ''){ 
+			$missing_reviewer_data = array();
+			$missing_review_data = array();
+			
+			if(empty($_POST['username'])){
+				$missing_reviewer_data[] = 'Username';
+			}
+			else{
+				$user_name = $_POST['username'];
+			}
+			
+			// the following fields are optional and not necessary to write a review
+			$fname = $_POST['firstname'];
+			$lname = $_POST['lastname'];
+			$email = $_POST['email'];
+			
+			// check review posts
+			if(empty($_POST['movies'])){
+				$missing_review_data[] = 'Title';
+			}
+			else{
+				$mid = $_POST['movies'];
+			}
+			
+			if(empty($_POST['score'])){
+				$missing_review_data[] = 'Movie Score';
+			}
+			else{
+				$score = $_POST['score'];
+			}
+			
+			if(empty($_POST['review'])){
+				$missing_review_data[] = 'Review';
+			}
+			else{
+				$review = $_POST['review'];
+			}
+			
+		}
+		else{
+			echo "Required fields not filled in.";
+		}
+		
+		if(empty($missing_reviewer_data)){
+			$q = "INSERT INTO reviewers(username, fname, lname, email) VALUES(?, ?, ?, ?)";
+			
+			$insert = mysqli_prepare($conn, $q);
+			mysqli_stmt_bind_param($insert, "ssss", $user_name, $fname, $lname, $email);
+			mysqli_stmt_execute($insert);
+			
+			//printf($user_name);
+			
+			//$find_rid_query = "SELECT rid FROM reviewers WHERE username=".$user_name;
+			
+			$rid = $insert->insert_id;
+			//printf($rid); //TODO find rid of user if it already exists
+		}
+		if(empty($missing_reviewer_data)&& empty($missing_review_data)){
+			$query = "INSERT INTO reviews(rid, mid, score, review, date_posted) VALUES(?,?,?,?,CURDATE())";
+			
+			$review_insert = mysqli_prepare($conn, $query);
+			mysqli_stmt_bind_param($review_insert, "iiis", $rid, $mid, $score, $review);
+			mysqli_stmt_execute($review_insert);
+		}
+		
+		$query2 = "SELECT * FROM reviewers INNER JOIN reviews ON 
 		reviewers.rid=reviews.rid INNER JOIN movies ON reviews.mid=movies.mid ORDER BY date_posted DESC";
 		
-		$response = mysqli_query($conn, $query);
+		$response = mysqli_query($conn, $query2);
 		
 		if($response){
 			echo '<div class="container"><table class="table table-hover table-bordered">
@@ -41,37 +109,6 @@
 				<td align="left">' . "<p class='small'>" . $row['date_posted'] . "</p>" . '</td>';
 			}
 			echo "</tr></table></div>";
-		}
-	?>
-	
-	<?php 
-		if(isset($_POST['submit']) && $_POST['submit'] != ''){ 
-			$missing_data = array();
-			
-			if(empty($_POST['username'])){
-				$missing_data[] = 'Username';
-			}
-			else{
-				$user_name = $_POST['username'];
-			}
-			
-			// the following fields are optional and not necessary to write a review
-			$fname = $_POST['firstname'];
-			$lname = $_POST['lastname'];
-			$email = $_POST['email'];
-			
-		}
-		else{
-			echo "Required fields not filled in.";
-		}
-		if(empty($missing_data)){
-			$q = "INSERT INTO reviewers(username, fname, lname, email)
-			VALUES(?, ?, ?, ?)";
-			
-			$insert = mysqli_prepare($conn, $q);
-			mysqli_stmt_bind_param($insert, "ssss", $user_name, $fname, $lname, $email);
-			
-			mysqli_stmt_execute($insert);
 		}
 		
 		mysqli_close($conn);

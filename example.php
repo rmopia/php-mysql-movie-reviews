@@ -28,13 +28,13 @@
 			<form action="result.php" method="post">
 				<div class="col">
 					<p>Username*: <!-- must be unique -->
-					<input type="text" name="username" size="20" maxlength="20" value="" /></p>
+					<input type="text" name="username" size="28" maxlength="20" value="" /></p>
 					<p><em>First name (optional):</em>
 					<input type="text" name="firstname" maxlength="50" size="20" value="" /></p>
 					<p><em>Last name (optional):</em>
 					<input type="text" name="lastname" maxlength="50" size="20" value="" /></p>
 					<p><em>Email (optional):</em>
-					<input type="text" name="email" size="20" value="" /></p>
+					<input type="text" name="email" size="24" value="" /></p>
 					<p>Movie Title*:
 					<select name="movies">
 						<option value="1">Shrek the Third</option>
@@ -49,9 +49,23 @@
 						<option value="11">Frozen II</option>
 						<option value="12">Black Panther</option>
 						<option value="13">John Wick: Chapter 3 - Parabellum</option>
+						<option value="14">The Shining</option>
+						<option value="15">The Room</option>
 					</select>
 					<p>Score*:
-					<input type="text" name="score" size="5" maxlength="2" value="" /></p>
+					<select name="score">
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+					</select>
 					<p>Review*:
 					<textarea type="text" name="review" value="" rows="4" cols="50"></textarea></p>
 					<input type="submit" name="submit" class="btn btn-primary">
