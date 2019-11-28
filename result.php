@@ -10,8 +10,17 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-
-<h1 align="center">Movie Reviews</h1>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="example.php">Movie Reviews</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="example.php">Home</a></li>
+      <li class="active"><a href="result.php">Reviews</a></li>
+    </ul>
+  </div>
+</nav>
 	<?php
 		echo "<div class='container'><h2>Recent Movie Reviews</h2></div>";
 
@@ -24,7 +33,15 @@
 		$conn->select_db($dbname) or die("Unable to connect to database.");
 	?>
 	
-	<?php 
+	<?php
+		if(isset($_POST['update-submit']) && $_POST['update-submit'] != ''){
+			printf('hello');
+		}
+		
+		if(isset($_POST['delete-submit']) && $_POST['delete-submit'] != ''){
+			printf('goodbye');
+		}
+	
 		if(isset($_POST['submit']) && $_POST['submit'] != ''){ 
 			$missing_reviewer_data = array();
 			$missing_review_data = array();
@@ -64,9 +81,6 @@
 			}
 			
 		}
-		else{
-			echo "Required fields not filled in.";
-		}
 		
 		if(empty($missing_reviewer_data)){
 			$q = "INSERT INTO reviewers(username, fname, lname, email) VALUES(?, ?, ?, ?)";
@@ -82,7 +96,6 @@
 					$rid = $row['rid'];
 				}
 			}
-			
 		}
 		if(empty($missing_reviewer_data)&& empty($missing_review_data)){
 			$query = "INSERT INTO reviews(rid, mid, score, review, date_posted) VALUES(?,?,?,?,CURDATE())";

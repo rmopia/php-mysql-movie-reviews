@@ -10,7 +10,17 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="example.php">Movie Reviews</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="example.php">Home</a></li>
+      <li><a href="result.php">Reviews</a></li>
+    </ul>
+  </div>
+</nav>
 <?php
 		$servername = "localhost";
 		$username = "root";
@@ -21,7 +31,6 @@
 		$conn->select_db($dbname) or die("Unable to connect to database."); 
 ?>
 
-<h1 align="center">Movie Reviews</h1>
 	<div class="container">
 		<h3>New? Add A Review</h3>
 		<div class="row">
