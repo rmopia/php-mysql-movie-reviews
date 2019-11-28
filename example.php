@@ -22,11 +22,11 @@
 ?>
 
 <h1 align="center">Movie Reviews</h1>
-	<div class="container ">
-		<h3>Add A Review</h3>
-			<div class="row">
+	<div class="container">
+		<h3>New? Add A Review</h3>
+		<div class="row">
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 			<form action="result.php" method="post">
-				<div class="col">
 					<p>Username*: <!-- must be unique -->
 					<input type="text" name="username" size="28" maxlength="20" value="" /></p>
 					<p><em>First name (optional):</em>
@@ -67,15 +67,81 @@
 						<option value="10">10</option>
 					</select>
 					<p>Review*:
-					<textarea type="text" name="review" value="" rows="4" cols="50"></textarea></p>
+					<textarea type="text" name="review" value="" rows="6" cols="40"></textarea></p>
 					<input type="submit" name="submit" class="btn btn-primary">
-				</div>
 			</form>
 			</div>
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<h3>Update A Review</h3>
+				<form action="result.php" method="post">
+				<p>Username*:
+					<input type="text" name="username" size="28" maxlength="20" value="" /></p>
+				<p>Movie Title*:
+					<select name="movies">
+						<option value="1">Shrek the Third</option>
+						<option value="2">Frozen</option>
+						<option value="3">The Revenant</option>
+						<option value="4">Once Upon a Time ... in Hollywood</option>
+						<option value="6">Joker</option>
+						<option value="7">Shrek</option>
+						<option value="8">Shrek 2</option>
+						<option value="9">Avengers: Endgame</option>
+						<option value="10">Titanic</option>
+						<option value="11">Frozen II</option>
+						<option value="12">Black Panther</option>
+						<option value="13">John Wick: Chapter 3 - Parabellum</option>
+						<option value="14">The Shining</option>
+						<option value="15">The Room</option>
+					</select>
+					<p>Score*:
+					<select name="score">
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+					</select>
+					<p>Review*:
+					<textarea type="text" name="review" value="" rows="6" cols="40"></textarea></p>
+					<input type="submit" name="update-submit" class="btn btn-secondary">
+				</form>
+			</div>
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<h3>Delete A Review</h3>
+				<form action="result.php" method="post">
+				<p>Username*:
+					<input type="text" name="username" size="28" maxlength="20" value="" /></p>
+				<p>Movie Title*:
+					<select name="movies">
+						<option value="1">Shrek the Third</option>
+						<option value="2">Frozen</option>
+						<option value="3">The Revenant</option>
+						<option value="4">Once Upon a Time ... in Hollywood</option>
+						<option value="6">Joker</option>
+						<option value="7">Shrek</option>
+						<option value="8">Shrek 2</option>
+						<option value="9">Avengers: Endgame</option>
+						<option value="10">Titanic</option>
+						<option value="11">Frozen II</option>
+						<option value="12">Black Panther</option>
+						<option value="13">John Wick: Chapter 3 - Parabellum</option>
+						<option value="14">The Shining</option>
+						<option value="15">The Room</option>
+					</select></p>
+					<input type="submit" name="delete-submit" class="btn btn-danger">
+				</form>
+			</div>
 	</div>
+	</div>
+	
 	<?php
-		echo "<div class='container'><h2>Recent Movie Releases</h2></div>"; ?>
-	<?php
+		echo "<div class='container'><h2>Recent Movie Releases</h2></div>";
 		
 		//$query = "SELECT * FROM movies ORDER BY year DESC";
 		$query = "SELECT title, year, runtime, age_rating, lead_actor, director, GROUP_CONCAT(g.genre) 

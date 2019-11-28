@@ -74,13 +74,15 @@
 			$insert = mysqli_prepare($conn, $q);
 			mysqli_stmt_bind_param($insert, "ssss", $user_name, $fname, $lname, $email);
 			mysqli_stmt_execute($insert);
+						
+			$find_rid_query = "SELECT rid FROM reviewers WHERE username='".$user_name."'";
+			$rid_response = mysqli_query($conn, $find_rid_query);
+			if($rid_response){
+				while($row = mysqli_fetch_array($rid_response)){
+					$rid = $row['rid'];
+				}
+			}
 			
-			//printf($user_name);
-			
-			//$find_rid_query = "SELECT rid FROM reviewers WHERE username=".$user_name;
-			
-			$rid = $insert->insert_id;
-			//printf($rid); //TODO find rid of user if it already exists
 		}
 		if(empty($missing_reviewer_data)&& empty($missing_review_data)){
 			$query = "INSERT INTO reviews(rid, mid, score, review, date_posted) VALUES(?,?,?,?,CURDATE())";
