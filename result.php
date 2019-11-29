@@ -35,11 +35,35 @@
 	
 	<?php
 		if(isset($_POST['update-submit']) && $_POST['update-submit'] != ''){
-			printf('hello');
+			$user_name = $_POST['username'];
+			$mid = $_POST['movies'];
+			$score = $_POST['score'];
+			$review = $_POST['review'];
+			
+			$find_rid_query = "SELECT rid FROM reviewers WHERE username='".$user_name."'";
+			$rid_response = mysqli_query($conn, $find_rid_query);
+			if($rid_response){
+				while($row = mysqli_fetch_array($rid_response)){
+					$rid = $row['rid'];
+				}
+			}
+			$update_query = "UPDATE reviews SET score=".$score.",review='".$review."',date_posted=CURDATE() WHERE rid=".$rid." AND mid=".$mid."";
+			$update_response = mysqli_query($conn, $update_query);
 		}
 		
 		if(isset($_POST['delete-submit']) && $_POST['delete-submit'] != ''){
-			printf('goodbye');
+			$user_name = $_POST['username'];
+			$mid = $_POST['movies'];
+			
+			$find_rid_query = "SELECT rid FROM reviewers WHERE username='".$user_name."'";
+			$rid_response = mysqli_query($conn, $find_rid_query);
+			if($rid_response){
+				while($row = mysqli_fetch_array($rid_response)){
+					$rid = $row['rid'];
+				}
+			}
+			$deletion_query = "DELETE FROM reviews WHERE rid=".$rid." AND mid=".$mid."";
+			$deletion_response = mysqli_query($conn, $deletion_query);
 		}
 	
 		if(isset($_POST['submit']) && $_POST['submit'] != ''){ 

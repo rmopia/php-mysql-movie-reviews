@@ -32,9 +32,9 @@
 ?>
 
 	<div class="container">
-		<h3>New? Add A Review</h3>
 		<div class="row">
 			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+			<h3>Add A Review</h3>
 			<form action="result.php" method="post">
 					<p>Username*: <!-- must be unique -->
 					<input type="text" name="username" size="28" maxlength="20" value="" /></p>
