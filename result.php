@@ -30,7 +30,7 @@
 		$dbname = "movie_reviews";
 		
 		$conn = new mysqli($servername, $username, $password, $dbname);
-		$conn->select_db($dbname) or die("Unable to connect to database.");
+		$conn->select_db($dbname) or die("Unable to connect to database. Bye!");
 	?>
 	
 	<?php
@@ -47,8 +47,21 @@
 					$rid = $row['rid'];
 				}
 			}
-			$update_query = "UPDATE reviews SET score=".$score.",review='".$review."',date_posted=CURDATE() WHERE rid=".$rid." AND mid=".$mid."";
-			$update_response = mysqli_query($conn, $update_query);
+			if($rid == 0){
+				echo "<div class='container'><p class='text-danger'>Error: Username is empty or not found. Please try again.</p></div>";
+			}
+			else if($review == ""){
+				echo "<div class='container'><p class='text-danger'>Error: Review section is empty. Please try again.</p></div>";
+			}
+			else{
+				$update_query = "UPDATE reviews SET score=".$score.",review='".$review."',date_posted=CURDATE() WHERE rid=".$rid." AND mid=".$mid."";
+				$update_response = mysqli_query($conn, $update_query);
+			
+				if(!$update_response){
+					echo "<div class='container'><p class='text-danger'>Error: Username does not exist.</p></div>";
+				}
+			}
+			
 		}
 		
 		if(isset($_POST['delete-submit']) && $_POST['delete-submit'] != ''){
@@ -64,9 +77,13 @@
 			}
 			$deletion_query = "DELETE FROM reviews WHERE rid=".$rid." AND mid=".$mid."";
 			$deletion_response = mysqli_query($conn, $deletion_query);
+			
+			if(!$deletion_response){
+				echo "<div class='container'><p class='text-danger'>Error: Username does not exist.</p></div>";
+			}
 		}
 	
-		if(isset($_POST['submit']) && $_POST['submit'] != ''){ 
+		if(isset($_POST['submit']) && $_POST['submit'] != ''){ // adding a review
 			$missing_reviewer_data = array();
 			$missing_review_data = array();
 			
@@ -103,10 +120,9 @@
 			else{
 				$review = $_POST['review'];
 			}
-			
 		}
 		
-		if(empty($missing_reviewer_data)){
+		if(isset($_POST['submit']) && empty($missing_reviewer_data)){
 			$q = "INSERT INTO reviewers(username, fname, lname, email) VALUES(?, ?, ?, ?)";
 			
 			$insert = mysqli_prepare($conn, $q);
@@ -121,18 +137,22 @@
 				}
 			}
 		}
-		if(empty($missing_reviewer_data)&& empty($missing_review_data)){
-			$query = "INSERT INTO reviews(rid, mid, score, review, date_posted) VALUES(?,?,?,?,CURDATE())";
+		
+		if(isset($_POST['submit']) && empty($missing_reviewer_data)&& empty($missing_review_data)){
+			$insertion_query = "INSERT INTO reviews(rid, mid, score, review, date_posted) VALUES(?,?,?,?,CURDATE())";
 			
-			$review_insert = mysqli_prepare($conn, $query);
+			$review_insert = mysqli_prepare($conn, $insertion_query);
 			mysqli_stmt_bind_param($review_insert, "iiis", $rid, $mid, $score, $review);
 			mysqli_stmt_execute($review_insert);
 		}
+		else if(isset($_POST['submit']) && (!empty($missing_reviewer_data)|| !empty($missing_review_data))){
+			echo "<div class='container'><p class='text-danger'>Error: Required fields not filled out. Please try again.</p></div>";
+		}
 		
-		$query2 = "SELECT * FROM reviewers INNER JOIN reviews ON 
+		$result_query = "SELECT * FROM reviewers INNER JOIN reviews ON 
 		reviewers.rid=reviews.rid INNER JOIN movies ON reviews.mid=movies.mid ORDER BY date_posted DESC";
 		
-		$response = mysqli_query($conn, $query2);
+		$response = mysqli_query($conn, $result_query);
 		
 		if($response){
 			echo '<div class="container"><table class="table table-hover table-bordered">
