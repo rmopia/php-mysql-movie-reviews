@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Movie Reviews</title>
+  <title>503 Movie Reviews</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -13,7 +13,7 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="example.php">Movie Reviews</a>
+      <a class="navbar-brand" href="example.php">503 Movie Reviews</a>
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="example.php">Home</a></li>
@@ -35,6 +35,7 @@
 		<div class="row">
 			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 			<h3>Add A Review</h3>
+			<h4>New or returning users:</h4>
 			<form action="result.php" method="post">
 					<p>Username*: <!-- must be unique -->
 					<input type="text" name="username" size="28" maxlength="20" value="" /></p>
@@ -160,7 +161,7 @@
 		$response = mysqli_query($conn, $query);
 		if($response){
 			echo '<div class="container"><table class="table table-striped table-hover"><thead><tr>
-			<th scope="col">Title</th>
+			<th scope="col">Movie Title</th>
 			<th scope="col">Year</th>
 			<th scope="col">Runtime (mins)</th>
 			<th scope="col">Age Rating</th>
