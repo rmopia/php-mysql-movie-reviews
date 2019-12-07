@@ -36,9 +36,17 @@
 	<?php
 		if(isset($_POST['update-submit']) && $_POST['update-submit'] != ''){
 			$user_name = $_POST['username'];
-			$mid = $_POST['movies'];
+			$movie_title = $_POST['movies'];
 			$score = $_POST['score'];
 			$review = $_POST['review'];
+			
+			$find_mid_query = "SELECT mid FROM movies WHERE title='".$movie_title."'";
+			$mid_response = mysqli_query($conn, $find_mid_query);
+			if($mid_response){
+				while($row = mysqli_fetch_array($mid_response)){
+					$mid = $row['mid'];
+				}
+			}
 			
 			$find_rid_query = "SELECT rid FROM reviewers WHERE username='".$user_name."'";
 			$rid_response = mysqli_query($conn, $find_rid_query);
@@ -66,7 +74,15 @@
 		
 		if(isset($_POST['delete-submit']) && $_POST['delete-submit'] != ''){
 			$user_name = $_POST['username'];
-			$mid = $_POST['movies'];
+			$movie_title = $_POST['movies'];
+			
+			$find_mid_query = "SELECT mid FROM movies WHERE title='".$movie_title."'";
+			$mid_response = mysqli_query($conn, $find_mid_query);
+			if($mid_response){
+				while($row = mysqli_fetch_array($mid_response)){
+					$mid = $row['mid'];
+				}
+			}
 			
 			$find_rid_query = "SELECT rid FROM reviewers WHERE username='".$user_name."'";
 			$rid_response = mysqli_query($conn, $find_rid_query);
@@ -104,14 +120,15 @@
 				$missing_review_data[] = 'Title';
 			}
 			else{
-				$mid = $_POST['movies'];
-			}
-			
-			if(empty($_POST['score'])){
-				$missing_review_data[] = 'Movie Score';
-			}
-			else{
-				$score = $_POST['score'];
+				$movie_title = $_POST['movies'];
+				
+				$find_mid_query = "SELECT mid FROM movies WHERE title='".$movie_title."'";
+				$mid_response = mysqli_query($conn, $find_mid_query);
+				if($mid_response){
+					while($row = mysqli_fetch_array($mid_response)){
+						$mid = $row['mid'];
+					}
+				}
 			}
 			
 			if(empty($_POST['review'])){
@@ -120,6 +137,8 @@
 			else{
 				$review = $_POST['review'];
 			}
+			
+			$score = $_POST['score']; // since a score from 0 to 10 is always given
 		}
 		
 		if(isset($_POST['submit']) && empty($missing_reviewer_data)){
@@ -128,7 +147,7 @@
 			$insert = mysqli_prepare($conn, $q);
 			mysqli_stmt_bind_param($insert, "ssss", $user_name, $fname, $lname, $email);
 			mysqli_stmt_execute($insert);
-						
+			
 			$find_rid_query = "SELECT rid FROM reviewers WHERE username='".$user_name."'";
 			$rid_response = mysqli_query($conn, $find_rid_query);
 			if($rid_response){

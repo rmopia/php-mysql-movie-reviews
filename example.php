@@ -47,20 +47,21 @@
 					<input type="text" name="email" size="24" value="" /></p>
 					<p>Movie Title*:
 					<select name="movies">
-						<option value="1">Shrek the Third</option>
-						<option value="2">Frozen</option>
-						<option value="3">The Revenant</option>
-						<option value="4">Once Upon a Time ... in Hollywood</option>
-						<option value="6">Joker</option>
-						<option value="7">Shrek</option>
-						<option value="8">Shrek 2</option>
-						<option value="9">Avengers: Endgame</option>
-						<option value="10">Titanic</option>
-						<option value="11">Frozen II</option>
-						<option value="12">Black Panther</option>
-						<option value="13">John Wick: Chapter 3 - Parabellum</option>
-						<option value="14">The Shining</option>
-						<option value="15">The Room</option>
+						<option value="Shrek the Third">Shrek the Third</option>
+						<option value="Frozen">Frozen</option>
+						<option value="The Revenant">The Revenant</option>
+						<option value="Once Upon a Time ... in Hollywood">Once Upon a Time ... in Hollywood</option>
+						<option value="Joker">Joker</option>
+						<option value="Shrek">Shrek</option>
+						<option value="Shrek 2">Shrek 2</option>
+						<option value="Avengers: Endgame">Avengers: Endgame</option>
+						<option value="Titanic">Titanic</option>
+						<option value="Frozen II">Frozen II</option>
+						<option value="Black Panther">Black Panther</option>
+						<option value="John Wick: Chapter 3 - Parabellum">John Wick: Chapter 3 - Parabellum</option>
+						<option value="The Shining">The Shining</option>
+						<option value="The Room">The Room</option>
+						<option value="The Lighthouse">The Lighthouse</option>
 					</select>
 					<p>Score*:
 					<select name="score">
@@ -88,20 +89,21 @@
 					<input type="text" name="username" size="28" maxlength="20" value="" /></p>
 				<p>Movie Title*:
 					<select name="movies">
-						<option value="1">Shrek the Third</option>
-						<option value="2">Frozen</option>
-						<option value="3">The Revenant</option>
-						<option value="4">Once Upon a Time ... in Hollywood</option>
-						<option value="6">Joker</option>
-						<option value="7">Shrek</option>
-						<option value="8">Shrek 2</option>
-						<option value="9">Avengers: Endgame</option>
-						<option value="10">Titanic</option>
-						<option value="11">Frozen II</option>
-						<option value="12">Black Panther</option>
-						<option value="13">John Wick: Chapter 3 - Parabellum</option>
-						<option value="14">The Shining</option>
-						<option value="15">The Room</option>
+						<option value="Shrek the Third">Shrek the Third</option>
+						<option value="Frozen">Frozen</option>
+						<option value="The Revenant">The Revenant</option>
+						<option value="Once Upon a Time ... in Hollywood">Once Upon a Time ... in Hollywood</option>
+						<option value="Joker">Joker</option>
+						<option value="Shrek">Shrek</option>
+						<option value="Shrek 2">Shrek 2</option>
+						<option value="Avengers: Endgame">Avengers: Endgame</option>
+						<option value="Titanic">Titanic</option>
+						<option value="Frozen II">Frozen II</option>
+						<option value="Black Panther">Black Panther</option>
+						<option value="John Wick: Chapter 3 - Parabellum">John Wick: Chapter 3 - Parabellum</option>
+						<option value="The Shining">The Shining</option>
+						<option value="The Room">The Room</option>
+						<option value="The Lighthouse">The Lighthouse</option>
 					</select>
 					<p>Score*:
 					<select name="score">
@@ -129,20 +131,21 @@
 					<input type="text" name="username" size="28" maxlength="20" value="" /></p>
 				<p>Movie Title*:
 					<select name="movies">
-						<option value="1">Shrek the Third</option>
-						<option value="2">Frozen</option>
-						<option value="3">The Revenant</option>
-						<option value="4">Once Upon a Time ... in Hollywood</option>
-						<option value="6">Joker</option>
-						<option value="7">Shrek</option>
-						<option value="8">Shrek 2</option>
-						<option value="9">Avengers: Endgame</option>
-						<option value="10">Titanic</option>
-						<option value="11">Frozen II</option>
-						<option value="12">Black Panther</option>
-						<option value="13">John Wick: Chapter 3 - Parabellum</option>
-						<option value="14">The Shining</option>
-						<option value="15">The Room</option>
+						<option value="Shrek the Third">Shrek the Third</option>
+						<option value="Frozen">Frozen</option>
+						<option value="The Revenant">The Revenant</option>
+						<option value="Once Upon a Time ... in Hollywood">Once Upon a Time ... in Hollywood</option>
+						<option value="Joker">Joker</option>
+						<option value="Shrek">Shrek</option>
+						<option value="Shrek 2">Shrek 2</option>
+						<option value="Avengers: Endgame">Avengers: Endgame</option>
+						<option value="Titanic">Titanic</option>
+						<option value="Frozen II">Frozen II</option>
+						<option value="Black Panther">Black Panther</option>
+						<option value="John Wick: Chapter 3 - Parabellum">John Wick: Chapter 3 - Parabellum</option>
+						<option value="The Shining">The Shining</option>
+						<option value="The Room">The Room</option>
+						<option value="The Lighthouse">The Lighthouse</option>
 					</select></p>
 					<input type="submit" name="delete-submit" class="btn btn-danger">
 				</form>
@@ -166,7 +169,7 @@
 			<th scope="col">Runtime (mins)</th>
 			<th scope="col">Age Rating</th>
 			<th scope="col">Genres</th>
-			<th scope="col">Lead Actor</th>
+			<th scope="col">Leading Actor</th>
 			<th scope="col">Director</th></tr></thead>';
 			
 			while($row = mysqli_fetch_array($response)){
